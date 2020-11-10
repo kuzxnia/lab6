@@ -1,15 +1,14 @@
 from flask import Flask
+from flask_restful import Resource, Api
 
 app = Flask(__name__)
-times = 0
+api = Api(app)
 
+class HelloWorld(Resource):
+    def get(self):
+        return {'hello': 'world'}
 
-@app.route('/')
-def hello_world():
-    global times
-    times += 1
-    return f'Hello, World! times={times}\n'
-
+api.add_resource(HelloWorld, '/')
 
 if __name__ == '__main__':
-    app.run()
+    app.run(debug=True, host='0.0.0.0')
